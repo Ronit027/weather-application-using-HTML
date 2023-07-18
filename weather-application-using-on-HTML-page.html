@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<p id="output">Enter the city name whose Temperature you want to know</p>
+	<input id="city">
+	<button onclick="show_temp()">Submit</button>
+	<script type="text/javascript">
+		function show_temp(){
+			document.getElementById("output").style.color="red";
+			document.getElementById("output").style.fontSize="20px";
+			city=document.getElementById("city").value;
+			httpRequest=new XMLHttpRequest();
+			url= "https://api.weatherbit.io/v2.0/current?city=" + city + "&key=46b563fc41324c95a5a38f6267d7ef15"
+			httpRequest.open("GET", url);
+			httpRequest.send();
+			httpRequest.onreadystatechange= function(){
+				if (this.readyState == 4 && this.status == 200)
+				{
+					user_data= JSON.parse(this.responseText);
+					document.getElementById("output").innerHTML= user_data.data[0].temp;
+				}
+			}
+		}
+	</script>
+</body>
+</html>
